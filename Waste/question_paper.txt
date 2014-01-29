@@ -1,0 +1,568 @@
+Q1.    #include <stdio.h>
+    int x = 0;
+    void main()
+    {
+        int *const ptr = &x;
+        printf("%p\n", ptr);
+        ptr++;
+        printf("%p\n ", ptr);   }
+
+	a) 0 1
+	b) Compile time error
+	c) 0xbfd605e8 0xbfd605ec
+	d) 0xbfd605e8 0xbfd605e8
+
+Q2 : What is the output of this C code (considering sizeof char is 1 and pointer is 4)?
+     #include <stdio.h>
+     int main()
+     {
+         char *a[2] = {"hello", "hi"};
+         printf("%d", sizeof(a));
+        return 0;
+    }
+	a) 9
+	b) 4
+	c) 8
+	d) 10
+
+Q3 : Comment on the following two operations?
+    int *a[] = {{1, 2, 3}, {1, 2, 3, 4}};	// 1
+    int b[4][4] = {{1, 2, 3}, {1, 2, 3, 4}};	// 2
+
+	a) 1 will work, 2 will not
+	b) 1 and 2, both will work
+	c) 1 won’t work, 2 will work
+	d) Neither of them will work
+
+Q4 : #include <stdio.h>
+    union p
+    {
+        int x;
+        char y;
+    };
+    int main()
+    {
+        union p p, b;
+        p.y = 60;
+        b.x = 12;
+        printf("%d\n", p.y);
+    }
+
+	a) Compile time error
+	b) Depends on the compiler
+	c) 60
+	d) Undefined behaviour
+
+Q5 : #include <stdio.h>
+   union p
+    {
+        int x;
+        char y;
+    }k = {1, 97};
+    int main()
+    {
+        printf("%d\n", k.y);
+    }
+	
+	a) Compile time error
+	b) 97
+	c) a
+	d) 1
+
+Q6 : #include <stdio.h>
+    union p
+    {
+        int x;
+        char y;
+    }k = {.y = 97};
+    int main()
+    {
+        printf("%d\n", k.y);
+    }
+
+	a) Compile time error
+	b) 97
+	c) a
+	d) Depends on the standard
+
+Q7 : #include <stdio.h>
+    union p
+    {
+        int x;
+        float y;
+    };
+    int main()
+    {
+        union p p, b;
+        p.x = 10;
+        printf("%f\n", p.y);
+    }
+
+a) Compile time error
+b) Implementation dependent
+C) 10.000000
+d) 0.000000 
+
+Q8 : What is the output of this C code?
+    #include <stdio.h>
+    union u
+    {
+        struct p
+        {
+            unsigned char x : 2;
+            unsigned int y : 2;
+        };
+        int x;
+    };
+    int main()
+    {
+        union u u;
+        u.p.x = 2;
+        printf("%d\n", u.p.x);
+    }
+
+a) Compile time error
+b) Undefined behaviour
+c) Depends on the standard
+d) 2 
+
+Q9 : What is the output of this C code?
+    #include <stdio.h>
+    union u
+    {
+        struct
+        {
+            char x : 2;
+            signed int y : 2;
+        }p;
+        int x;
+    };
+    int main()
+    {
+        union u u;
+        u.p.x = 2;
+        printf("%d\n", u.p.x);
+    }
+a) Compile time error
+b) 2
+c) Undefined behaviour
+d) -2
+
+Q10 : What is the output of this C code?
+    #include <stdio.h>
+    void main()
+    {
+        int a = -5;
+        int k = (a++, ++a);
+        printf("%d\n", k);
+    }
+
+a) -3
+b) -5
+c) 4
+d) Undefined
+
+Q11 : What is the output of this C code?
+    #include <stdio.h>
+    int main()
+    {
+        if (~0 == 1)
+            printf("yes\n");
+        else
+            printf("no\n");
+    }
+
+a) yes
+b) no
+c) Compile time error
+d) Undefined
+
+Q12 : What is the output of this C code?
+    #include <stdio.h>
+    int main()
+    {
+        int i = 0;
+        do
+        {
+            i++;
+            if (i == 2)
+                continue;
+                printf("In while loop ");
+        } while (i < 2);
+        printf("%d\n", i);
+    }
+a) In while loop 2
+b) In while loop in while loop 3
+c) In while loop 3
+d) Infinite loop
+
+Q13 : What is the output of this C code?
+    #include <stdio.h>
+    int main()
+    {
+        int i = 0;
+        for (; ; ;)
+            printf("In for loop\n");
+            printf("After loop\n");
+    }
+a) Compile time error
+b) Infinite loop
+c) After loop
+d) Undefined behaviour
+
+Q14 : Which segment of a C program is initialized with zero ?
+1. BSS  		2. Data Segment          3.Code Segment 		4. Heap
+
+Q15 :  What is the output of this C code?
+    #include <stdio.h>
+    struct p
+    {
+        int x[2];
+    };
+    struct q
+    {
+        int *x;
+    };
+    int main()
+    {
+        struct p p1 = {1, 2};
+        struct q *ptr1;
+        ptr1->x = (struct q*)&p1.x;
+        printf("%d\n", ptr1->x[1]);
+    }
+a) Compile time error
+b) Segmentation fault/code crash
+c) 2
+d) 1
+
+Q16 : What is the output of this C code?
+    #include <stdio.h>
+    struct p
+    {
+        int x;
+        char y;
+    };
+    int main(){
+        struct p p1[] = {1, 92, 3, 94, 5, 96};
+        struct p *ptr1 = p1;
+        int x = (sizeof(p1) / sizeof(struct p));
+        printf("%d %d\n", ptr1->x, (ptr1 + x - 1)->x);
+    }
+a) Compile time error
+b) Undefined behaviour
+c) 1 3
+d) 1 5
+
+Q17 : Predict the data type of the following mathematical operation?
+    	2 * 9 + 3 / 2 . 0
+a. int
+b. long
+c. float
+d. double
+
+Q18 : %lf is used to display
+a. float
+b. long float
+c. double
+d. All of the mentioned
+
+Q19 : What will be the size of the following structure?
+    #include <stdio.h>
+    struct temp
+    {
+        int a[10];
+        char p;
+    };
+a. 5
+b. 11
+c. 41
+d. 44
+
+Q20. Which of the following cannot be used inside sizeof?
+a. pointers
+b. functions
+c. macro definition
+d. None of the mentioned
+
+Q21 : Comment on the following C code?
+    #include <stdio.h>
+    (sizeof double = 8, float = 4, void = 1)
+    #define PI 3.14
+    int main()
+    {
+        printf("%d", sizeof(PI));
+    }
+a. Output is 8
+b. Output is 4
+c. Output is 1
+d. Error, we can’t use sizeof on macro-definitions
+
+Q22 : The correct syntax to use typedef for struct is.
+a) typedef struct temp
+    {
+        int a;
+    }TEMP;
+b) typedef struct
+    {
+        int a;
+     }TEMP;
+c) struct temp
+    {
+        int a;
+    };
+    typedef struct temp TEMP;
+d) All of the mentioned
+
+Q23 : Which of the given option is the correct method for initialization?
+    typedef char *string;
+a) *string *p = “Hello”;
+b) string p = “Hello”;
+c) *string p = ‘A’;
+d) Not more than one space should be given when using typedef
+
+Q24 : Which of the following is FALSE about typedef?
+a) typedef follow scope rules
+b) typedef defined substitutes can be redefined again. (Eg: typedef char a; typedef int a;)
+c) You cannot typedef a typedef with other term.
+d) All of the mentioned
+
+Q25 : #include <stdio.h>
+    int main()
+    {
+        reverse(1);
+    }
+    void reverse(int i)
+    {
+        if (i > 5)
+            exit(0);
+        printf("%d\n", i);
+        return reverse(i++);
+    }
+a) 1 2 3 4 5
+b) 1 2 3 4
+c) Compile time error
+d) Stack overflow
+
+Q26 : 
+1. #include <stdio.h>
+2.     int x = 0;
+3.     int main()
+4.     {
+5.         int i = (f() + g()) || g();
+6.         int j = g() || (f() + g());
+7.     }
+8.     int f()
+9.     {
+10.         if (x == 0)
+11.             return x + 1;
+12.         else
+13.             return x - 1;
+14.     }
+15.     int g()
+16.     {
+17.         return x++;
+18.     }
+a)i value is 1 and j value is 1
+b)i value is 0 and j value is 0
+c)i value is 1 and j value is undefined
+d)i and j value are undefined
+
+Q27 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         int x = 2, y = 0;
+5.         int z = (y++) ? 2 : y == 1 && x;
+6.         printf("%d\n", z);
+7.         return 0;
+8.     }
+a) 0
+b) 1
+c) 2
+d)Undefined behaviour
+
+Q28 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         int x = 2, y = 0;
+5.         int z;
+6.         z = (y++, y);
+7.         printf("%d\n", z);
+8.         return 0;
+9.     }
+a) 0
+b) 1
+c) Undefined behaviour
+d) Compilation error
+
+Q29 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         int x = 1;
+5.         short int i = 2;
+6.         float f = 3;
+7.         if (sizeof((x == 2) ? f : i) == sizeof(float))
+8.             printf("float\n");
+9.         else if (sizeof((x == 2) ? f : i) == sizeof(short int))
+10.             printf("short int\n");
+11.     }
+a) float
+b) short int
+c) Undefined behaviour
+d) Compile time error
+
+Q30 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         int a = 2;
+5.         int b = 0;
+6.         int y = (b == 0) ? a :(a > b) ? (b = 1): a;
+7.         printf("%d\n", y);
+8.     }
+a) Compile time error
+b) 1
+c) 2
+d) Undefined behaviour
+
+Q31 : The code snippet below produces
+1.     #include <stdio.h>
+2.     void main()
+3.     {
+4.         1 < 2 ? return 1 : return 2;
+5.     }
+a) returns 1
+b) returns 2
+c) Varies
+d) Compile time error
+
+Q32 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     static int x;
+3.     void main()
+4.     {
+5.         int x;
+6.         printf("x is %d", x);
+7.     }
+a) 0
+b) Junkvalue
+c) Run time error
+d) Nothing
+
+Q33 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         register int i = 10;
+5.         int *p = &i;
+6.         *p = 11;
+7.         printf("%d %d\n", i, *p);
+8.     }
+a) Depends on whether i is actually stored in machine register
+b) 10 10
+c) 11 11
+d) Compile time error
+
+Q34 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     int main()
+3.     {
+4.         register const int i = 10;
+5.         i = 11;
+6.         printf("%d\n", i);
+7.     }
+a) 10
+b) Compile time error
+c) Undefined behaviour
+d) 11
+
+Q35 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     void main()
+3.     {
+4.         register int x = 5;
+5.         m();
+6.         printf("x is %d", x);
+7.     }
+8.     void m()
+9.     {
+10.         x++;
+11.     }
+a) 6
+b) 5
+c) Junk value
+d) Compile time error
+
+Q36 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     void foo(auto int i);
+3.     int main()
+4.     {
+5.         foo(10);
+6.     }
+7.     void foo(auto int i)
+8.     {
+9.         printf("%d\n", i );
+10.     }
+a) 10
+b) Compile time error
+c) Depends on the standard
+d) None of the mentioned
+
+Q37 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     #define foo(x, y) #x #y
+3.     int main()
+4.     {
+5.         printf("%s\n", foo(k, l));
+6.         return 0;
+7.     }
+a) kl
+b) k l
+c) xy
+d) Compile time error
+
+Q38 : What is the output of this C code?
+1.     #include <stdio.h>
+2.     #define foo(x, y) x / y + x
+3.     int main()
+4.     {
+5.         int i = -6, j = 3;
+6.         printf("%d\n",foo(i + j, 3));
+7.         return 0;
+8.     }
+a) Divided by zero exception
+b) Compile time error
+c) -8
+d) -4
+
+Q39 : Array sizes are optional during array declaration by using ______ keyword.
+a) auto
+b) static
+c) extern
+d) register
+
+Q40 : What is the output of this C code?
+    #include <stdio.h>
+    int x = 5;
+    void main()
+    {
+       int x = 3;
+       m();
+       printf("%d", x);
+    }
+    void m()
+     {
+         x = 8;
+         n();
+     }
+     void n()
+   {
+        printf("%d", x);
+    }
+a) 8 3
+b) 3 8
+c) 8 5
+d) 5 3
