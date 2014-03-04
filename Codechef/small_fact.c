@@ -26,7 +26,7 @@ void fact(short int num)
 			length++;
 		}
 	}
-	printf("%d",fct[length-1]);
+	printf("%hd",fct[length-1]);
 	for(i=length-1;i>0;i--)
 		if(fct[i-1]>=10)
 			printf("%hd",fct[i-1]);
